@@ -23,7 +23,7 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
       validate: {
         lessThan10MB: file =>
           file[0].size / 1024 / 1024 < 10 ||
-          'O arquivo deve ser menor que 10MB', // convert to mb
+          'O arquivo deve ser menor que 10MB', // convertido em megabytes - mb
         acceptedFormats: file =>
           file[0].type.match('image/(jpeg|png|gif)') ||
           'Somente são aceitos arquivos PNG, JPEG e GIF.',
@@ -54,8 +54,12 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const queryClient = useQueryClient();
   const mutation = useMutation(
     // TODO MUTATION API POST REQUEST,
+    data => api.post('api/images', data),
     {
       // TODO ONSUCCESS MUTATION
+      onSuccess: () => {
+        queryClient.invalidateQueries();
+      },
     }
   );
 
@@ -64,7 +68,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const { errors } = formState;
 
   const onSubmit = async (data: Record<string, unknown>): Promise<void> => {
-    console.log(data);
     try {
       // TODO SHOW ERROR TOAST IF IMAGE URL DOES NOT EXISTS
       // TODO EXECUTE ASYNC MUTATION
