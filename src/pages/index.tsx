@@ -78,7 +78,7 @@ export default function Home(): JSX.Element {
         <CardList cards={formattedData} />
         {/* TODO RENDER LOAD MORE BUTTON IF DATA HAS NEXT PAGE */}
         {hasNextPage && (
-          <Button onClick={() => fetchNextPage()}>
+          <Button mt="32px" onClick={() => fetchNextPage()}>
             {isFetchingNextPage ? 'Carregando' : 'Carregar mais'}
           </Button>
         )}
