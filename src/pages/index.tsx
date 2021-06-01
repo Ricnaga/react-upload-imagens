@@ -23,7 +23,7 @@ interface IRequest {
 
 export default function Home(): JSX.Element {
   const getImages = async ({ pageParam = 0 }): Promise<IRequest> => {
-    const response = await api.get(`/api/images?after=${pageParam}`);
+    const response = await api.get(`/api/images`);
     return response.data;
   };
 
